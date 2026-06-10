@@ -1,0 +1,22 @@
+{
+  "name": "templete03",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "학습사이트 아트디렉션 템플릿 (React 19 + Vite 7 + Supabase)",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^7.0.0"
+  }
+}

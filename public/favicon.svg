@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#14213D"/>
+  <!-- 형광펜 자국 -->
+  <rect x="14" y="36" width="36" height="9" rx="2" fill="#E8A33D" opacity="0.9"/>
+  <!-- 펜촉(✎) -->
+  <path d="M18 30 L40 12 L46 18 L24 36 Z" fill="#F4F6FB"/>
+  <path d="M40 12 L44 8 L50 14 L46 18 Z" fill="#1D4E89"/>
+  <path d="M18 30 L24 36 L17 38 Z" fill="#1D4E89"/>
+</svg>
