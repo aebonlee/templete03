@@ -83,12 +83,37 @@ main { flex: 1; }
 .lesson { padding: clamp(2rem, 5vw, 3.5rem) var(--gap); max-width: 860px; }
 .lesson__title { font-size: clamp(1.6rem, 4vw, 2.3rem); margin: .5rem 0 .3rem; }
 .lesson__meta { color: var(--ink-45); }
+.lesson__done-tag { color: var(--pigment); font-weight: 600; }
 .lesson__player { margin: 1.6rem 0; }
-.lesson__video, .lesson__lock { aspect-ratio: 16/9; border-radius: var(--radius-lg); display: grid; place-items: center; text-align: center; gap: .8rem; }
+.lesson__video, .lesson__lock { aspect-ratio: 16/9; border-radius: var(--radius-lg); display: grid; place-items: center; text-align: center; gap: .8rem; overflow: hidden; }
 .lesson__video { background: var(--ink); color: var(--wash); }
+.lesson__video iframe { width: 100%; height: 100%; border: 0; }
+.lesson__video--placeholder { background: var(--ink); }
 .lesson__lock { background: var(--wash); border: 1px dashed color-mix(in srgb, var(--pigment) 40%, transparent); color: var(--ink-70); padding: 1.5rem; }
+.lesson__complete { margin-bottom: 1.5rem; }
 .lesson__nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }
 .lesson-missing { text-align: center; padding: 5rem var(--gap); display: grid; gap: 1.2rem; place-items: center; }
+
+/* --- 밑줄 노트 --- */
+.notes { background: #fff; border: 1px solid var(--paper-d); border-radius: var(--radius-lg); padding: 1.3rem 1.5rem; box-shadow: var(--shadow-card); margin-bottom: 1.5rem; }
+.notes__title { font-size: 1.1rem; margin-bottom: .8rem; color: var(--pigment); }
+.notes__form { display: flex; gap: .6rem; align-items: flex-end; flex-wrap: wrap; }
+.notes__form textarea { flex: 1; min-width: 200px; padding: .7rem .8rem; border: 1px solid var(--paper-d); border-radius: var(--radius); font-family: inherit; font-size: .95rem; resize: vertical; color: var(--ink); }
+.notes__form textarea:focus { outline: 2px solid var(--wash); border-color: var(--pigment); }
+.notes__list { list-style: none; margin-top: 1rem; display: flex; flex-direction: column; gap: .5rem; }
+.notes__empty { color: var(--ink-45); font-size: .85rem; }
+.notes__item { display: flex; justify-content: space-between; align-items: flex-start; gap: .6rem; }
+.notes__mark { background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 50%, transparent), color-mix(in srgb, var(--accent) 28%, transparent)); background-repeat: no-repeat; background-position: 0 85%; background-size: 100% 45%; color: var(--ink); padding: 0 .12em; }
+.notes__del { background: none; border: none; color: var(--ink-45); font-size: 1.2rem; line-height: 1; padding: 0 .2rem; }
+.notes__del:hover { color: var(--accent); }
+
+/* --- 진도바 / 체크 --- */
+.progress-bar { display: flex; align-items: center; gap: .8rem; margin-bottom: 1.8rem; }
+.progress-bar__track { flex: 1; height: 8px; background: var(--paper-d); border-radius: 100px; overflow: hidden; }
+.progress-bar__fill { height: 100%; background: linear-gradient(90deg, var(--pigment), var(--accent)); border-radius: 100px; transition: width var(--duration) var(--ease); }
+.progress-bar__label { color: var(--ink-70); font-size: .82rem; white-space: nowrap; }
+.lesson-row__check { display: inline-block; width: 1.3em; color: var(--ink-45); }
+.lesson-row__check.done { color: var(--pigment); font-weight: 700; }
 
 /* --- Auth --- */
 .auth { display: grid; place-items: center; min-height: 70vh; padding: 3rem var(--gap); }

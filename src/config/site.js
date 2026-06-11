@@ -29,32 +29,34 @@ export const features = [
 ]
 
 // 커리큘럼 — 모듈 / 레슨 (Supabase 미연동 시 이 정적 데이터로 동작)
+// videoId: 유튜브 영상 ID. 데모는 공개도메인 Big Buck Bunny(aqz-KE-bpKQ) 사용 — 실제 강의로 교체.
+const DEMO_VID = 'aqz-KE-bpKQ'
 export const modules = [
   {
     id: 'm1', no: 1, title: '시작하기',
     summary: '학습 환경을 세팅하고 첫 걸음을 뗍니다.',
     lessons: [
-      { id: 'l1-1', title: '오리엔테이션', minutes: 8, free: true },
-      { id: 'l1-2', title: '학습 도구 살펴보기', minutes: 12, free: true },
-      { id: 'l1-3', title: '나의 학습 목표 정하기', minutes: 10, free: false },
+      { id: 'l1-1', title: '오리엔테이션', minutes: 8, free: true, videoId: DEMO_VID },
+      { id: 'l1-2', title: '학습 도구 살펴보기', minutes: 12, free: true, videoId: DEMO_VID },
+      { id: 'l1-3', title: '나의 학습 목표 정하기', minutes: 10, free: false, videoId: DEMO_VID },
     ],
   },
   {
     id: 'm2', no: 2, title: '핵심 개념',
     summary: '주제의 근본 원리를 밑줄 그으며 익힙니다.',
     lessons: [
-      { id: 'l2-1', title: '개념 1 — 큰 그림', minutes: 16, free: false },
-      { id: 'l2-2', title: '개념 2 — 깊이 보기', minutes: 18, free: false },
-      { id: 'l2-3', title: '개념 3 — 연결하기', minutes: 14, free: false },
+      { id: 'l2-1', title: '개념 1 — 큰 그림', minutes: 16, free: false, videoId: DEMO_VID },
+      { id: 'l2-2', title: '개념 2 — 깊이 보기', minutes: 18, free: false, videoId: DEMO_VID },
+      { id: 'l2-3', title: '개념 3 — 연결하기', minutes: 14, free: false, videoId: DEMO_VID },
     ],
   },
   {
     id: 'm3', no: 3, title: '실전 적용',
     summary: '배운 것을 직접 손으로 만들어 봅니다.',
     lessons: [
-      { id: 'l3-1', title: '실습 프로젝트 준비', minutes: 20, free: false },
-      { id: 'l3-2', title: '함께 만들기', minutes: 25, free: false },
-      { id: 'l3-3', title: '회고와 다음 단계', minutes: 12, free: false },
+      { id: 'l3-1', title: '실습 프로젝트 준비', minutes: 20, free: false, videoId: DEMO_VID },
+      { id: 'l3-2', title: '함께 만들기', minutes: 25, free: false, videoId: DEMO_VID },
+      { id: 'l3-3', title: '회고와 다음 단계', minutes: 12, free: false, videoId: DEMO_VID },
     ],
   },
 ]

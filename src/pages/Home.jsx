@@ -1,10 +1,31 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { hero, features, modules, plans } from '../config/site'
 import Section from '../components/Section'
 import Reveal from '../components/Reveal'
 import Highlighter from '../components/Highlighter'
+import { useAuth } from '../context/AuthContext'
+import { useProgress } from '../context/ProgressContext'
+import { requestPay } from '../lib/payment'
 
 export default function Home() {
+  const navigate = useNavigate()
+  const { user } = useAuth()
+  const { isPro, reload } = useProgress()
+
+  async function handlePlan(plan) {
+    if (plan.price === 0) { navigate(user ? '/curriculum' : '/login'); return }
+    if (!user) { navigate('/login'); return }
+    if (isPro) { navigate('/curriculum'); return }
+    try {
+      await requestPay({ plan: plan.id, amount: plan.price, name: `${plan.name} 수강권`, user })
+      await reload()
+      alert('결제가 완료되었습니다. 모든 레슨이 열렸습니다!')
+      navigate('/curriculum')
+    } catch (err) {
+      alert(err.message || '결제에 실패했습니다.')
+    }
+  }
+
   return (
     <>
       {/* --- 히어로 : 좌측 네거티브 스페이스에 헤드라인 --- */}
@@ -89,7 +110,7 @@ export default function Home() {
       </Section>
 
       {/* --- 가격 --- */}
-      <Section eyeline="PRICING" title="필요한 만큼만">
+      <Section id="pricing" eyeline="PRICING" title="필요한 만큼만">
         <div className="grid grid-2 plans">
           {plans.map((p) => (
             <Reveal key={p.id} className={`card plan${p.featured ? ' plan--featured' : ''}`}>
@@ -102,7 +123,9 @@ export default function Home() {
               <ul className="plan__perks">
                 {p.perks.map((perk) => <li key={perk}>{perk}</li>)}
               </ul>
-              <Link to="/login" className={`btn ${p.featured ? 'btn-accent' : 'btn-ghost'}`}>{p.cta}</Link>
+              <button onClick={() => handlePlan(p)} className={`btn ${p.featured ? 'btn-accent' : 'btn-ghost'}`}>
+                {p.featured && isPro ? '수강 중 →' : p.cta}
+              </button>
             </Reveal>
           ))}
         </div>
