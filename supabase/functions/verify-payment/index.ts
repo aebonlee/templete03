@@ -39,10 +39,12 @@ Deno.serve(async (req) => {
     const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!
     const ANON = Deno.env.get('SUPABASE_ANON_KEY')!
     const SERVICE = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
-    const IMP_KEY = Deno.env.get('IMP_REST_API_KEY')
-    const IMP_SECRET = Deno.env.get('IMP_REST_API_SECRET')
+    // 포트원 REST 키 — 공유 프로젝트의 기존 시크릿명(PORTONE_API_KEY/SECRET) 우선,
+    // 없으면 IMP_REST_API_KEY/SECRET 로 폴백.
+    const IMP_KEY = Deno.env.get('PORTONE_API_KEY') ?? Deno.env.get('IMP_REST_API_KEY')
+    const IMP_SECRET = Deno.env.get('PORTONE_API_SECRET') ?? Deno.env.get('IMP_REST_API_SECRET')
 
-    if (!IMP_KEY || !IMP_SECRET) return json({ error: '결제 시크릿 미설정(IMP_REST_API_KEY/SECRET)' }, 500)
+    if (!IMP_KEY || !IMP_SECRET) return json({ error: '결제 시크릿 미설정(PORTONE_API_KEY/SECRET)' }, 500)
 
     // ① 호출자 인증
     const authHeader = req.headers.get('Authorization') ?? ''
