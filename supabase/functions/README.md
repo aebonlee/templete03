@@ -6,20 +6,24 @@
 서버측 가격표와 대조한 뒤 `tpl_orders` 확정 + `tpl_profiles.plan='pro'` 승급.
 클라이언트는 금액/승급을 직접 쓰지 않는다(위변조 차단).
 
-### 1) 필요한 시크릿 등록
-포트원 콘솔 > 결제연동 > **REST API Key / Secret** 값을 발급받아 등록:
+### 1) 필요한 시크릿
+포트원 콘솔 > 결제연동 > **REST API Key / Secret**. 이 프로젝트(공유 Supabase)에는
+이미 `PORTONE_API_KEY` / `PORTONE_API_SECRET` 로 등록되어 있어 **재사용**한다.
+함수는 `PORTONE_API_KEY/SECRET` → (없으면) `IMP_REST_API_KEY/SECRET` 순으로 읽는다.
 
+새로 등록해야 한다면:
 ```bash
-export SUPABASE_ACCESS_TOKEN=sbp_xxx   # 본인 계정의 유효한 토큰
+export SUPABASE_ACCESS_TOKEN=sbp_xxx   # 유효한 토큰(예: 1시간 만료)
 
 supabase secrets set \
-  IMP_REST_API_KEY=발급받은_REST_API_KEY \
-  IMP_REST_API_SECRET=발급받은_REST_API_SECRET \
-  TABLE_PREFIX=tpl_ \
+  PORTONE_API_KEY=발급받은_REST_API_KEY \
+  PORTONE_API_SECRET=발급받은_REST_API_SECRET \
   --project-ref hcmgdztsgjvzcyxyayaj
 ```
 > `SUPABASE_URL` / `SUPABASE_ANON_KEY` / `SUPABASE_SERVICE_ROLE_KEY` 는
-> 플랫폼이 자동 주입하므로 등록 불필요.
+> 플랫폼이 자동 주입하므로 등록 불필요. `TABLE_PREFIX` 미설정 시 기본값 `tpl_`.
+> ⚠ 이 Supabase는 여러 프로젝트가 공유한다 — `verify-payment` 가 templete03 전용인지
+> 확인할 것(다른 프로젝트가 같은 함수명을 쓰면 전용 함수명으로 분리).
 
 ### 2) 함수 배포
 ```bash
