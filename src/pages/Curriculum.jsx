@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { modules } from '../config/site'
+import { modules, lessonFormat } from '../config/site'
 import { useProgress } from '../context/ProgressContext'
 import Section from '../components/Section'
 import Reveal from '../components/Reveal'
@@ -41,6 +41,7 @@ export default function Curriculum() {
                     </span>
                     <span className="lesson-row__meta mono">
                       {l.free && <em className="tag-free">무료</em>}
+                      <em className="tag-fmt">{lessonFormat(l).icon} {lessonFormat(l).label}</em>
                       {l.minutes}분
                     </span>
                   </Link>

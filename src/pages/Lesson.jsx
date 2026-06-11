@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { modules } from '../config/site'
+import { modules, lessonFormat } from '../config/site'
 import { useAuth } from '../context/AuthContext'
 import { useProgress } from '../context/ProgressContext'
 import { fetchNotes, addNote, deleteNote } from '../lib/db'
 import YouTube from '../components/YouTube'
+import LessonContent from '../components/LessonContent'
 
 // 모든 레슨을 펼쳐 이전/다음 탐색
 const flat = modules.flatMap((m) =>
@@ -45,6 +46,9 @@ export default function Lesson() {
 
   const prev = flat[idx - 1]
   const next = flat[idx + 1]
+  const fmt = lessonFormat(lesson)
+  const hasVideo = !!lesson.videoId
+  const hasReading = Array.isArray(lesson.content) && lesson.content.length > 0
 
   async function handleAddNote(e) {
     e.preventDefault()
@@ -68,12 +72,13 @@ export default function Lesson() {
       </p>
       <h1 className="lesson__title">{lesson.title}</h1>
       <p className="lesson__meta mono">
-        {lesson.minutes}분{lesson.free ? ' · 무료' : ''}
+        <span className="lesson__fmt">{fmt.icon} {fmt.label}</span>
+        {' · '}{hasVideo && !hasReading ? '시청' : '읽기'} {lesson.minutes}분{lesson.free ? ' · 무료' : ''}
         {completed && <span className="lesson__done-tag"> ✓ 완료</span>}
       </p>
 
-      <div className="lesson__player">
-        {locked ? (
+      {locked ? (
+        <div className="lesson__player">
           <div className="lesson__lock">
             <span aria-hidden style={{ fontSize: '2rem' }}>🔒</span>
             <p>{user ? '이 레슨은 정규 수강생 전용입니다.' : '이 레슨은 수강생 전용입니다.'}</p>
@@ -81,10 +86,20 @@ export default function Lesson() {
               {user ? '수강 신청하기' : '로그인하고 이어보기'}
             </button>
           </div>
-        ) : (
-          <YouTube videoId={lesson.videoId} title={lesson.title} />
-        )}
-      </div>
+        </div>
+      ) : (
+        <>
+          {hasVideo && (
+            <div className="lesson__player">
+              <YouTube videoId={lesson.videoId} title={lesson.title} />
+            </div>
+          )}
+          {hasReading && <LessonContent blocks={lesson.content} />}
+          {!hasVideo && !hasReading && (
+            <div className="lesson__player"><YouTube videoId={null} title={lesson.title} /></div>
+          )}
+        </>
+      )}
 
       {/* 완료 토글 — 로그인 + 시청 가능할 때만 */}
       {user && !locked && (

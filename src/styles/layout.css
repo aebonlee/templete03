@@ -84,6 +84,35 @@ main { flex: 1; }
 .lesson__title { font-size: clamp(1.6rem, 4vw, 2.3rem); margin: .5rem 0 .3rem; }
 .lesson__meta { color: var(--ink-45); }
 .lesson__done-tag { color: var(--pigment); font-weight: 600; }
+.lesson__fmt { color: var(--pigment); font-weight: 600; }
+
+/* --- 웹 학습자료 (LessonContent) --- */
+.material { max-width: 720px; margin: 0 0 2rem; }
+.material > * + * { margin-top: 1.05rem; }
+.material__h { font-size: 1.35rem; margin-top: 2rem; }
+.material__p { color: var(--ink); font-size: 1.06rem; line-height: 1.85; }
+.material__list, .material__steps { padding-left: 1.3rem; display: flex; flex-direction: column; gap: .45rem; color: var(--ink); }
+.material__list { list-style: none; }
+.material__list li { position: relative; padding-left: 1.1rem; }
+.material__list li::before { content: '–'; position: absolute; left: 0; color: var(--pigment); font-weight: 700; }
+.material__steps { list-style: none; counter-reset: step; }
+.material__steps li { position: relative; padding-left: 2.2rem; }
+.material__steps li::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: -.1em; width: 1.6rem; height: 1.6rem; display: grid; place-items: center; background: var(--pigment); color: #fff; border-radius: 50%; font-family: var(--font-mono); font-size: .8rem; }
+/* 형광펜 강조 박스 — 시그니처를 학습자료로 확장 */
+.material__callout { display: flex; gap: .8rem; align-items: flex-start; background: color-mix(in srgb, var(--accent) 14%, var(--paper)); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 1rem 1.2rem; }
+.material__callout p { color: var(--ink); font-size: 1.02rem; }
+.material__callout-mark { color: var(--accent); font-size: 1.2rem; line-height: 1.5; }
+.material__code { background: var(--ink); color: var(--wash); border-radius: var(--radius); padding: 1rem 1.2rem; overflow-x: auto; }
+.material__code code { font-size: .9rem; line-height: 1.6; white-space: pre; }
+.material__figure { margin: 0; }
+.material__figure img { width: 100%; border-radius: var(--radius-lg); border: 1px solid var(--paper-d); }
+.material__figure figcaption { color: var(--ink-45); font-size: .8rem; margin-top: .5rem; text-align: center; }
+.material__quote { border-left: 3px solid var(--pigment); padding: .3rem 0 .3rem 1.2rem; color: var(--ink-70); }
+.material__quote p { font-size: 1.15rem; font-family: var(--font-display); }
+.material__quote cite { display: block; margin-top: .4rem; font-size: .8rem; color: var(--ink-45); font-style: normal; }
+.material__divider { border: 0; border-top: 1px solid var(--paper-d); margin: 1.8rem 0; }
+/* 커리큘럼 형태 태그 */
+.tag-fmt { font-style: normal; color: var(--pigment); background: var(--wash); padding: .1rem .45rem; border-radius: 4px; font-size: .72rem; }
 .lesson__player { margin: 1.6rem 0; }
 .lesson__video, .lesson__lock { aspect-ratio: 16/9; border-radius: var(--radius-lg); display: grid; place-items: center; text-align: center; gap: .8rem; overflow: hidden; }
 .lesson__video { background: var(--ink); color: var(--wash); }
